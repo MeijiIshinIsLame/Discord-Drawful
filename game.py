@@ -3,8 +3,6 @@ import os
 import discord
 import time
 
-import helpers
-
 class Game:
 	def __init__(self, bot, message, mode="Default", rounds=2):
 		self.bot = bot
