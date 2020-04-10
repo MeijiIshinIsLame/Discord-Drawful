@@ -3,6 +3,8 @@ import os
 import discord
 import time
 
+import database
+
 class Game:
 	def __init__(self, bot, message, mode="Default", rounds=2):
 		self.bot = bot
@@ -66,7 +68,7 @@ class Game:
 		for mode in self.modes:
 			modes_output += "({}) {}\n".format(i, mode)
 			i += 1
-		await self.message.send(modes_output)
+		await self.message.channel.send(modes_output)
 
 	############### CHECKS #####################
 

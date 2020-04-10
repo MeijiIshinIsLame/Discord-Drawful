@@ -22,8 +22,8 @@ async def on_message(message):
 	await bot.process_commands(message)
 
 @bot.command(name='startgame')
-async def start_drawful_game(ctx, mode="default", rounds=2):
-	session = game.Game(bot, ctx, mode, rounds)
+async def start_drawful_game(ctx, rounds=2):
+	session = game.Game(bot, ctx, rounds=int(rounds))
 	while session.running:
 			await session.get_players()
 
