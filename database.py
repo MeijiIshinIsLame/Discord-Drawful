@@ -1,5 +1,4 @@
 import sqlite3
-import discord
 
 PROMPT_DATABASE = 'prompt_database.db'
 MAX_CHAR = 255
@@ -8,7 +7,15 @@ ROW_LIMIT = 4000
 def get_random_prompt(table_name="defaultprompts"):
 	conn = conn = sqlite3.connect(PROMPT_DATABASE)
 	rows = execute_sql_selectall(conn, "SELECT prompt FROM %s ORDER BY RANDOM() LIMIT 1" % (table_name,))
+	conn.close()
 	return rows[0][0]
+
+def get_db_count(table_name="defaultprompts"):
+	conn = sqlite3.connect(PROMPT_DATABASE)
+	cur = conn.cursor()
+	cur.execute("SELECT MAX(id) FROM %s" % (table_name,))
+	count = cur.fetchone()[0] + 1
+	return int(count)
 
 def execute_sql_selectall(conn, sql):
 	cur = conn.cursor()
@@ -35,3 +42,5 @@ def create_default_db():
 
 	conn.commit()
 	conn.close()
+
+print(get_db_count())
